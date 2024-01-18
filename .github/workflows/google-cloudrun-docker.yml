@@ -17,10 +17,12 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Authenticate with Google Cloud
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
       run: |
-        echo "$GCP_SA_KEY" > key.json
-        gcloud auth activate-service-account --key-file=key.json
-        gcloud config set project "$GCP_PROJECT_ID"
+        gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS"
+        gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
+
 
     - name: Authorize Docker push to Artifact Registry
       run: gcloud auth configure-docker ${{ secrets.GCP_GAR_LOCATION }}-docker.pkg.dev
