@@ -18,7 +18,36 @@
 - **API Integration:** To showcase real-time data or integrate with other services.
 - **Advanced SEO Features:** Enhanced SEO capabilities for better web presence.
 
-## Installation
+## Installation & Setup 
+- 1. Prepare Your GitHub Repository
+   Create a Repository: If you haven't already, create a repository on GitHub for your project.
+   Add Your Project: Push your project code to this repository. This code will eventually be deployed to Google Cloud Run.
+- 2. Set Up Google Cloud Run
+   Create a Google Cloud Project: If you don't have one, create a new project in the Google Cloud Console.
+   Enable Cloud Run: Make sure that Cloud Run is enabled in your Google Cloud project.
+   Containerize Your Application: Your application should be containerized (using Docker, for example), as Google Cloud Run deploys containers.
+   Push Container to Google Container Registry: Build your container image and push it to Google Container Registry (GCR) or another container registry that Google Cloud Run can access.
+- 3. Configure GitHub Actions
+   Create a Workflow: In your GitHub repository, set up a new workflow in the .github/workflows directory.
+   Define Workflow Steps: The workflow should include steps to:
+   Install necessary dependencies.
+   Build your application (if required).
+   Build and push the Docker image to Google Container Registry.
+   Deploy the new image to Google Cloud Run.
+   Add Secrets for Authentication: In your GitHub repository settings, add necessary secrets for authenticating with Google Cloud (like service account keys).
+- 4. Configure Domain to Point to Google Cloud Run
+   Map Custom Domain in Google Cloud Run: Once your application is deployed on Cloud Run, you can map your custom domain (purchased from Squarespace) to your Cloud Run service.
+   Update DNS Settings in Squarespace:
+   Log in to your Squarespace account, go to your domain settings, and find the DNS settings.
+   Update the DNS records to point to the URL provided by Google Cloud Run. This typically involves adding a CNAME record or A record as instructed by Google Cloud.
+- 5. Continuous Deployment
+   With GitHub Actions set up, every time you push changes to your repository, it can automatically build and deploy your application to Google Cloud Run.
+- 6. Verify and Test
+   Once everything is set up, verify that your domain correctly directs to your application hosted on Google Cloud Run.
+   Test the deployment process by making a change in your GitHub repository and observing the automatic deployment.
+- Note:
+   Each of these steps involves specific configurations and might require additional setup depending on the specifics of your project and your domain.
+   It's important to familiarize yourself with the documentation of GitHub Actions, Google Cloud Run, and Squarespace's domain management to navigate the details of each platform.
 
 ### Prerequisites
 - Python 3.8 or higher
@@ -75,4 +104,4 @@
 - [MIT License](LICENSE.txt)
 
 ## Contact
-- For inquiries or suggestions, please contact me at [your-email@example.com](mailto:your-email@example.com).
+- For inquiries or suggestions, please contact me at [kirsch.marvin.94@gmail.com](mailto:kirsch.marvin.94@gmail.com).
