@@ -8,6 +8,9 @@ on:
 jobs:
   checkout_code:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -16,6 +19,7 @@ jobs:
     needs: checkout_code
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       id-token: write
     steps:
     - name: Authenticate to Google Cloud
@@ -27,6 +31,9 @@ jobs:
   setup_gcloud:
     needs: authenticate
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v2
@@ -36,6 +43,9 @@ jobs:
   build_and_push:
     needs: setup_gcloud
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
     - name: Authorize Docker push to Artifact Registry
       run: gcloud auth configure-docker ${{ secrets.GCP_GAR_LOCATION }}
@@ -47,6 +57,9 @@ jobs:
   deploy_to_cloud_run:
     needs: build_and_push
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
     - name: Deploy to Cloud Run
       uses: google-github-actions/deploy-cloudrun@v2
