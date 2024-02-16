@@ -19,6 +19,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    needs: checkout_code
     steps:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
