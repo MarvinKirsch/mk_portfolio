@@ -52,7 +52,7 @@ jobs:
         run: gcloud auth configure-docker ${{ secrets.GCP_GAR_LOCATION }}
       - name: Build and push Docker image
         run: |
-          docker build -t ${{ secrets.GCP_PROJECT_ID }}-${{ secrets.GCP_SERVICE }}:${{ github.sha }} . --volume $(pwd):/app
+          docker build -v $(pwd):/app -t ${{ secrets.GCP_PROJECT_ID }}-${{ secrets.GCP_SERVICE }}:${{ github.sha }} . 
           docker push ${{ secrets.GCP_PROJECT_ID }}-${{ secrets.GCP_SERVICE }}:${{ github.sha }}
 
   deploy_to_cloud_run:
