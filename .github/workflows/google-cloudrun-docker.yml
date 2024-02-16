@@ -38,6 +38,7 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
         with:
+          service_account: ${{ secrets.GCP_SERVICE_EMAIL }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
   build_and_push:
@@ -50,7 +51,6 @@ jobs:
       - name: Authorize Docker push to Artifact Registry
         run: gcloud auth configure-docker ${{ secrets.GCP_GAR_LOCATION }}
       - name: Build and push Docker image
-        # Use ${{ secrets.GCP_GAR_LOCATION }} if necessary
         run: |
           docker build -t ${{ secrets.GCP_PROJECT_ID }}-${{ secrets.GCP_SERVICE }}:${{ github.sha }} .
           docker push ${{ secrets.GCP_PROJECT_ID }}-${{ secrets.GCP_SERVICE }}:${{ github.sha }}
