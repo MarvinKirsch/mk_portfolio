@@ -45,8 +45,6 @@ jobs:
     needs: setup_gcloud
     steps:
       - name: Authorize Docker push to Artifact Registry
-        # Store GCR location in a secret if not using Artifact Registry
-        if: ${{ secrets.GCP_GAR_LOCATION }}
         run: gcloud auth configure-docker ${{ secrets.GCP_GAR_LOCATION }}
       - name: Build and push Docker image
         # Use ${{ secrets.GCP_GAR_LOCATION }} if necessary
